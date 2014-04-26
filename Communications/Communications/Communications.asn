@@ -1,0 +1,31 @@
+Module-order DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+Message ::= CHOICE {
+    request Request,
+    response Response,
+    ...
+}
+
+Request ::= SEQUENCE {
+
+}
+
+Response ::= SEQUENCE {
+    health System-health,
+    location Location,
+    ...
+}
+
+System-health ::= ENUMERATED {
+    nominal(0),
+    ...
+}
+
+Location ::= SEQUENCE {
+    latitude INTEGER,
+    longitude INTEGER,
+    ...
+}
+
+END
