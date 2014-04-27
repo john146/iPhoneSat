@@ -15,8 +15,8 @@
 @property (nonatomic, retain)NSDecimalNumber* latitude;
 @property (nonatomic, retain)NSDecimalNumber* longitude;
 
-- initWithDecimalLatitude: (NSDecimalNumber*)latitude Longitude: (NSDecimalNumber*)longitude;
-- initWithIntegerLatitude: (NSNumber*)latitude Longitude: (NSNumber*)longitude;
+- (id)initWithDecimalLatitude: (NSDecimalNumber*)latitude Longitude: (NSDecimalNumber*)longitude;
+- (id)initWithIntegerLatitude: (NSNumber*)latitude Longitude: (NSNumber*)longitude;
 
 - (Boolean)encode;
 - (Boolean)decode;
