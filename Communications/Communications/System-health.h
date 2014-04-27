@@ -8,10 +8,10 @@
 #define	_System_health_H_
 
 
-#include <asn_application.h>
+#include "asn_application.h"
 
 /* Including external dependencies */
-#include <NativeEnumerated.h>
+#include "NativeEnumerated.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,4 +45,4 @@ per_type_encoder_f System_health_encode_uper;
 #endif
 
 #endif	/* _System_health_H_ */
-#include <asn_internal.h>
+#include "asn_internal.h"

@@ -18,8 +18,8 @@
 #include <sysexits.h>	/* for EX_* exit codes */
 #include <errno.h>	/* for errno */
 
-#include <asn_application.h>
-#include <asn_internal.h>	/* for _ASN_DEFAULT_STACK_MAX */
+#include "asn_application.h"
+#include "asn_internal.h"	/* for _ASN_DEFAULT_STACK_MAX */
 
 /* Convert "Type" defined by -DPDU into "asn_DEF_Type" */
 #define	ASN_DEF_PDU(t)	asn_DEF_ ## t
@@ -73,7 +73,7 @@ static void   junk_bytes_with_probability(uint8_t *, size_t, double prob);
 
 /* Debug output function */
 static inline void
-DEBUG(const char *fmt, ...) {
+DEBUG_(const char *fmt, ...) {
 	va_list ap;
 	if(!opt_debug) return;
 	fprintf(stderr, "AD: ");
@@ -310,7 +310,7 @@ main(int ac, char *av[]) {
 					name, pduType->name);
 				exit(EX_UNAVAILABLE);
 			}
-			DEBUG("Encoded in %ld bytes of DER", (long)erv.encoded);
+			DEBUG_("Encoded in %ld bytes of DER", (long)erv.encoded);
 			break;
 		case OUT_PER:
 			erv = uper_encode(pduType, structure, write_out, stdout);
@@ -320,7 +320,7 @@ main(int ac, char *av[]) {
 					name, pduType->name);
 				exit(EX_UNAVAILABLE);
 			}
-			DEBUG("Encoded in %ld bits of UPER", (long)erv.encoded);
+			DEBUG_("Encoded in %ld bits of UPER", (long)erv.encoded);
 			break;
 		}
 
@@ -357,7 +357,7 @@ buffer_dump() {
 	uint8_t *p = DynamicBuffer.data + DynamicBuffer.offset;
 	uint8_t *e = p + DynamicBuffer.length - (DynamicBuffer.unbits ? 1 : 0);
 	if(!opt_debug) return;
-	DEBUG("Buffer: { d=%p, o=%ld, l=%ld, u=%ld, a=%ld, s=%ld }",
+	DEBUG_("Buffer: { d=%p, o=%ld, l=%ld, u=%ld, a=%ld, s=%ld }",
 		DynamicBuffer.data,
 		(long)DynamicBuffer.offset,
 		(long)DynamicBuffer.length,
@@ -400,7 +400,7 @@ buffer_shift_left(size_t offset, int bits) {
 	
 	if(!bits) return;
 
-	DEBUG("Shifting left %d bits off %ld (o=%ld, u=%ld, l=%ld)",
+	DEBUG_("Shifting left %d bits off %ld (o=%ld, u=%ld, l=%ld)",
 		bits, (long)offset,
 		(long)DynamicBuffer.offset,
 		(long)DynamicBuffer.unbits,
@@ -410,7 +410,7 @@ buffer_shift_left(size_t offset, int bits) {
 		int right;
 		right = ptr[0] >> (8 - bits);
 
-		DEBUG("oleft: %c%c%c%c%c%c%c%c",
+		DEBUG_("oleft: %c%c%c%c%c%c%c%c",
 			((ptr[-1] >> 7) & 1) ? '1' : '0',
 			((ptr[-1] >> 6) & 1) ? '1' : '0',
 			((ptr[-1] >> 5) & 1) ? '1' : '0',
@@ -420,7 +420,7 @@ buffer_shift_left(size_t offset, int bits) {
 			((ptr[-1] >> 1) & 1) ? '1' : '0',
 			((ptr[-1] >> 0) & 1) ? '1' : '0');
 
-		DEBUG("oriht: %c%c%c%c%c%c%c%c",
+		DEBUG_("oriht: %c%c%c%c%c%c%c%c",
 			((ptr[0] >> 7) & 1) ? '1' : '0',
 			((ptr[0] >> 6) & 1) ? '1' : '0',
 			((ptr[0] >> 5) & 1) ? '1' : '0',
@@ -430,7 +430,7 @@ buffer_shift_left(size_t offset, int bits) {
 			((ptr[0] >> 1) & 1) ? '1' : '0',
 			((ptr[0] >> 0) & 1) ? '1' : '0');
 
-		DEBUG("mriht: %c%c%c%c%c%c%c%c",
+		DEBUG_("mriht: %c%c%c%c%c%c%c%c",
 			((right >> 7) & 1) ? '1' : '0',
 			((right >> 6) & 1) ? '1' : '0',
 			((right >> 5) & 1) ? '1' : '0',
@@ -442,7 +442,7 @@ buffer_shift_left(size_t offset, int bits) {
 
 		ptr[-1] = (ptr[-1] & (0xff << bits)) | right;
 
-		DEBUG("after: %c%c%c%c%c%c%c%c",
+		DEBUG_("after: %c%c%c%c%c%c%c%c",
 			((ptr[-1] >> 7) & 1) ? '1' : '0',
 			((ptr[-1] >> 6) & 1) ? '1' : '0',
 			((ptr[-1] >> 5) & 1) ? '1' : '0',
@@ -461,7 +461,7 @@ buffer_shift_left(size_t offset, int bits) {
 	}
 	*ptr <<= bits;
 
-	DEBUG("Unbits [%d=>", (int)DynamicBuffer.unbits);
+	DEBUG_("Unbits [%d=>", (int)DynamicBuffer.unbits);
 	if(DynamicBuffer.unbits == 0) {
 		DynamicBuffer.unbits += bits;
 	} else {
@@ -472,11 +472,11 @@ buffer_shift_left(size_t offset, int bits) {
 			DynamicBuffer.bytes_shifted++;
 		}
 	}
-	DEBUG("Unbits =>%d]", (int)DynamicBuffer.unbits);
+	DEBUG_("Unbits =>%d]", (int)DynamicBuffer.unbits);
 
 	buffer_dump();
 
-	DEBUG("Shifted. Now (o=%ld, u=%ld l=%ld)",
+	DEBUG_("Shifted. Now (o=%ld, u=%ld l=%ld)",
 		(long)DynamicBuffer.offset,
 		(long)DynamicBuffer.unbits,
 		(long)DynamicBuffer.length);
@@ -491,7 +491,7 @@ static void add_bytes_to_buffer(const void *data2add, size_t bytes) {
 
 	if(bytes == 0) return;
 
-	DEBUG("=> add_bytes(%ld) { o=%ld l=%ld u=%ld, s=%ld }",
+	DEBUG_("=> add_bytes(%ld) { o=%ld l=%ld u=%ld, s=%ld }",
 		(long)bytes,
 		(long)DynamicBuffer.offset,
 		(long)DynamicBuffer.length,
@@ -500,9 +500,9 @@ static void add_bytes_to_buffer(const void *data2add, size_t bytes) {
 
 	if(DynamicBuffer.allocated
 	>= (DynamicBuffer.offset + DynamicBuffer.length + bytes)) {
-		DEBUG("\tNo buffer reallocation is necessary");
+		DEBUG_("\tNo buffer reallocation is necessary");
 	} else if(bytes <= DynamicBuffer.offset) {
-		DEBUG("\tContents shifted by %ld", DynamicBuffer.offset);
+		DEBUG_("\tContents shifted by %ld", DynamicBuffer.offset);
 
 		/* Shift the buffer contents */
 		memmove(DynamicBuffer.data,
@@ -525,7 +525,7 @@ static void add_bytes_to_buffer(const void *data2add, size_t bytes) {
 		DynamicBuffer.offset = 0;
 		DynamicBuffer.allocated = newsize;
 		DynamicBuffer.nreallocs++;
-		DEBUG("\tBuffer reallocated to %ld (%d time)",
+		DEBUG_("\tBuffer reallocated to %ld (%d time)",
 			newsize, DynamicBuffer.nreallocs);
 	}
 
@@ -539,7 +539,7 @@ static void add_bytes_to_buffer(const void *data2add, size_t bytes) {
 		buffer_shift_left(DynamicBuffer.length - bytes, bits);
 	}
 
-	DEBUG("<= add_bytes(%ld) { o=%ld l=%ld u=%ld, s=%ld }",
+	DEBUG_("<= add_bytes(%ld) { o=%ld l=%ld u=%ld, s=%ld }",
 		(long)bytes,
 		(long)DynamicBuffer.offset,
 		(long)DynamicBuffer.length,
@@ -571,7 +571,7 @@ data_decode_from_file(asn_TYPE_descriptor_t *pduType, FILE *file, const char *na
 		opt_codec_ctx = &s_codec_ctx;
 	}
 
-	DEBUG("Processing %s", name);
+	DEBUG_("Processing %s", name);
 
 	/* prepare the file buffer */
 	if(fbuf_size != suggested_bufsize) {
@@ -620,7 +620,7 @@ data_decode_from_file(asn_TYPE_descriptor_t *pduType, FILE *file, const char *na
 			i_size = rd;
 		}
 
-		DEBUG("Decoding %ld bytes", (long)i_size);
+		DEBUG_("Decoding %ld bytes", (long)i_size);
 
 #ifdef	JUNKTEST
 		junk_bytes_with_probability(i_bptr, i_size, opt_jprob);
@@ -665,7 +665,7 @@ data_decode_from_file(asn_TYPE_descriptor_t *pduType, FILE *file, const char *na
 			}
 			break;
 		}
-		DEBUG("decode(%ld) consumed %ld+%db (%ld), code %d",
+		DEBUG_("decode(%ld) consumed %ld+%db (%ld), code %d",
 			(long)DynamicBuffer.length,
 			(long)rval.consumed, ecbits, (long)i_size,
 			rval.code);
@@ -697,11 +697,11 @@ data_decode_from_file(asn_TYPE_descriptor_t *pduType, FILE *file, const char *na
 		switch(rval.code) {
 		case RC_OK:
 			if(ecbits) buffer_shift_left(0, ecbits);
-			DEBUG("RC_OK, finishing up with %ld+%d",
+			DEBUG_("RC_OK, finishing up with %ld+%d",
 				(long)rval.consumed, ecbits);
 			return structure;
 		case RC_WMORE:
-			DEBUG("RC_WMORE, continuing read=%ld, cons=%ld "
+			DEBUG_("RC_WMORE, continuing read=%ld, cons=%ld "
 				" with %ld..%ld-%ld..%ld",
 				(long)rd,
 				(long)rval.consumed,
@@ -717,7 +717,7 @@ data_decode_from_file(asn_TYPE_descriptor_t *pduType, FILE *file, const char *na
 		break;
 	}
 
-	DEBUG("Clean up partially decoded structure");
+	DEBUG_("Clean up partially decoded structure");
 	ASN_STRUCT_FREE(*pduType, structure);
 
 	new_offset = DynamicBuffer.bytes_shifted + DynamicBuffer.offset;
@@ -743,7 +743,7 @@ data_decode_from_file(asn_TYPE_descriptor_t *pduType, FILE *file, const char *na
 		}
 #endif
 
-		DEBUG("ofp %d, no=%ld, oo=%ld, dbl=%ld",
+		DEBUG_("ofp %d, no=%ld, oo=%ld, dbl=%ld",
 			on_first_pdu, (long)new_offset, (long)old_offset,
 			(long)DynamicBuffer.length);
 		fprintf(stderr, "%s: "

@@ -43,6 +43,9 @@
 		52C80B7C190C6731004D22EF /* xer_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B63190C6731004D22EF /* xer_decoder.c */; };
 		52C80B7D190C6731004D22EF /* xer_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B65190C6731004D22EF /* xer_encoder.c */; };
 		52C80B7E190C6731004D22EF /* xer_support.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B67190C6731004D22EF /* xer_support.c */; };
+		52C80B87190C758E004D22EF /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B86190C758E004D22EF /* Location.m */; };
+		52C80B88190C758E004D22EF /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B86190C758E004D22EF /* Location.m */; };
+		52C80B8A190C799E004D22EF /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B89190C799E004D22EF /* LocationTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +141,10 @@
 		52C80B66190C6731004D22EF /* xer_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_encoder.h; sourceTree = "<group>"; };
 		52C80B67190C6731004D22EF /* xer_support.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xer_support.c; sourceTree = "<group>"; };
 		52C80B68190C6731004D22EF /* xer_support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xer_support.h; sourceTree = "<group>"; };
+		52C80B83190C756C004D22EF /* Communications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Communications.xcodeproj; path = /Users/john/iPhoneSat/Communications/Communications.xcodeproj; sourceTree = "<absolute>"; };
+		52C80B85190C758E004D22EF /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = ObjCommunications/Location.h; sourceTree = SOURCE_ROOT; };
+		52C80B86190C758E004D22EF /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = ObjCommunications/Location.m; sourceTree = SOURCE_ROOT; };
+		52C80B89190C799E004D22EF /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +173,7 @@
 		52C80AF7190C6163004D22EF = {
 			isa = PBXGroup;
 			children = (
+				52C80B84190C756C004D22EF /* ObjCommunications */,
 				52C80B05190C6163004D22EF /* Communications */,
 				52C80B19190C6163004D22EF /* CommunicationsTests */,
 				52C80B02190C6163004D22EF /* Frameworks */,
@@ -195,6 +203,22 @@
 		52C80B05190C6163004D22EF /* Communications */ = {
 			isa = PBXGroup;
 			children = (
+				52C80B2A190C6714004D22EF /* asn_application.h */,
+				52C80B2D190C6714004D22EF /* asn_codecs.h */,
+				52C80B2B190C6714004D22EF /* asn_codecs_prim.c */,
+				52C80B2C190C6714004D22EF /* asn_codecs_prim.h */,
+				52C80B2E190C6714004D22EF /* asn_internal.h */,
+				52C80B2F190C6714004D22EF /* asn_system.h */,
+				52C80B30190C6714004D22EF /* ber_decoder.c */,
+				52C80B31190C6714004D22EF /* ber_decoder.h */,
+				52C80B32190C6714004D22EF /* ber_tlv_length.c */,
+				52C80B33190C6714004D22EF /* ber_tlv_length.h */,
+				52C80B34190C6714004D22EF /* ber_tlv_tag.c */,
+				52C80B35190C6714004D22EF /* ber_tlv_tag.h */,
+				52C80B36190C6714004D22EF /* BIT_STRING.c */,
+				52C80B37190C6714004D22EF /* BIT_STRING.h */,
+				52C80B08190C6163004D22EF /* Communications.h */,
+				52C80B0A190C6163004D22EF /* Communications.m */,
 				52C80B3D190C6731004D22EF /* constr_CHOICE.c */,
 				52C80B3E190C6731004D22EF /* constr_CHOICE.h */,
 				52C80B3F190C6731004D22EF /* constr_SEQUENCE.c */,
@@ -230,6 +254,7 @@
 				52C80B5E190C6731004D22EF /* Request.h */,
 				52C80B5F190C6731004D22EF /* Response.c */,
 				52C80B60190C6731004D22EF /* Response.h */,
+				52C80B06190C6163004D22EF /* Supporting Files */,
 				52C80B61190C6731004D22EF /* System-health.c */,
 				52C80B62190C6731004D22EF /* System-health.h */,
 				52C80B63190C6731004D22EF /* xer_decoder.c */,
@@ -238,23 +263,6 @@
 				52C80B66190C6731004D22EF /* xer_encoder.h */,
 				52C80B67190C6731004D22EF /* xer_support.c */,
 				52C80B68190C6731004D22EF /* xer_support.h */,
-				52C80B2A190C6714004D22EF /* asn_application.h */,
-				52C80B2B190C6714004D22EF /* asn_codecs_prim.c */,
-				52C80B2C190C6714004D22EF /* asn_codecs_prim.h */,
-				52C80B2D190C6714004D22EF /* asn_codecs.h */,
-				52C80B2E190C6714004D22EF /* asn_internal.h */,
-				52C80B2F190C6714004D22EF /* asn_system.h */,
-				52C80B30190C6714004D22EF /* ber_decoder.c */,
-				52C80B31190C6714004D22EF /* ber_decoder.h */,
-				52C80B32190C6714004D22EF /* ber_tlv_length.c */,
-				52C80B33190C6714004D22EF /* ber_tlv_length.h */,
-				52C80B34190C6714004D22EF /* ber_tlv_tag.c */,
-				52C80B35190C6714004D22EF /* ber_tlv_tag.h */,
-				52C80B36190C6714004D22EF /* BIT_STRING.c */,
-				52C80B37190C6714004D22EF /* BIT_STRING.h */,
-				52C80B08190C6163004D22EF /* Communications.h */,
-				52C80B0A190C6163004D22EF /* Communications.m */,
-				52C80B06190C6163004D22EF /* Supporting Files */,
 			);
 			path = Communications;
 			sourceTree = "<group>";
@@ -273,6 +281,7 @@
 			children = (
 				52C80B1F190C6163004D22EF /* CommunicationsTests.m */,
 				52C80B1A190C6163004D22EF /* Supporting Files */,
+				52C80B89190C799E004D22EF /* LocationTests.m */,
 			);
 			path = CommunicationsTests;
 			sourceTree = "<group>";
@@ -284,6 +293,17 @@
 				52C80B1C190C6163004D22EF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		52C80B84190C756C004D22EF /* ObjCommunications */ = {
+			isa = PBXGroup;
+			children = (
+				52C80B83190C756C004D22EF /* Communications.xcodeproj */,
+				52C80B85190C758E004D22EF /* Location.h */,
+				52C80B86190C758E004D22EF /* Location.m */,
+			);
+			name = ObjCommunications;
+			path = Communications.xcodeproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,6 +413,7 @@
 				52C80B74190C6731004D22EF /* OCTET_STRING.c in Sources */,
 				52C80B39190C6714004D22EF /* ber_decoder.c in Sources */,
 				52C80B73190C6731004D22EF /* NativeInteger.c in Sources */,
+				52C80B87190C758E004D22EF /* Location.m in Sources */,
 				52C80B75190C6731004D22EF /* per_decoder.c in Sources */,
 				52C80B38190C6714004D22EF /* asn_codecs_prim.c in Sources */,
 			);
@@ -402,6 +423,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52C80B88190C758E004D22EF /* Location.m in Sources */,
+				52C80B8A190C799E004D22EF /* LocationTests.m in Sources */,
 				52C80B20190C6163004D22EF /* CommunicationsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

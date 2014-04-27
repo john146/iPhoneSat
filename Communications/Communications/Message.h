@@ -8,12 +8,12 @@
 #define	_Message_H_
 
 
-#include <asn_application.h>
+#include "asn_application.h"
 
 /* Including external dependencies */
 #include "Request.h"
 #include "Response.h"
-#include <constr_CHOICE.h>
+#include "constr_CHOICE.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,4 +52,4 @@ extern asn_TYPE_descriptor_t asn_DEF_Message;
 #endif
 
 #endif	/* _Message_H_ */
-#include <asn_internal.h>
+#include "asn_internal.h"

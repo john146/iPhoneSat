@@ -3,9 +3,9 @@
  * All rights reserved.
  * Redistribution and modifications are permitted subject to BSD license.
  */
-#include <asn_internal.h>
-#include <constr_CHOICE.h>
-#include <per_opentype.h>
+#include "asn_internal.h"
+#include "constr_CHOICE.h"
+#include "per_opentype.h"
 
 /*
  * Number of bytes left for this structure.
@@ -54,7 +54,7 @@
  * Return a standardized complex structure.
  */
 #undef	RETURN
-#define	RETURN(_code)	do {			\
+#define	RETURN_(_code)	do {			\
 		rval.code = _code;		\
 		rval.consumed = consumed_myself;\
 		return rval;			\
@@ -126,7 +126,7 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 	if(st == 0) {
 		st = *struct_ptr = CALLOC(1, specs->struct_size);
 		if(st == 0) {
-			RETURN(RC_FAIL);
+			RETURN_(RC_FAIL);
 		}
 	}
 
@@ -177,9 +177,9 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 		tag_len = ber_fetch_tag(ptr, LEFT, &tlv_tag);
 		ASN_DEBUG("In %s CHOICE tag length %d", td->name, (int)tag_len);
 		switch(tag_len) {
-		case 0: if(!SIZE_VIOLATION) RETURN(RC_WMORE);
+		case 0: if(!SIZE_VIOLATION) RETURN_(RC_WMORE);
 			/* Fall through */
-		case -1: RETURN(RC_FAIL);
+		case -1: RETURN_(RC_FAIL);
 		}
 
 		do {
@@ -201,7 +201,7 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 				ASN_DEBUG("Unexpected tag %s "
 					"in non-extensible CHOICE %s",
 					ber_tlv_tag_string(tlv_tag), td->name);
-				RETURN(RC_FAIL);
+				RETURN_(RC_FAIL);
 			} else {
 				/* Skip this tag */
 				ssize_t skip;
@@ -215,13 +215,13 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 					LEFT - tag_len);
 
 				switch(skip) {
-				case 0: if(!SIZE_VIOLATION) RETURN(RC_WMORE);
+				case 0: if(!SIZE_VIOLATION) RETURN_(RC_WMORE);
 					/* Fall through */
-				case -1: RETURN(RC_FAIL);
+				case -1: RETURN_(RC_FAIL);
 				}
 
 				ADVANCE(skip + tag_len);
-				RETURN(RC_OK);
+				RETURN_(RC_OK);
 			}
 		} while(0);
 
@@ -267,11 +267,11 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 		case RC_WMORE: /* More data expected */
 			if(!SIZE_VIOLATION) {
 				ADVANCE(rval.consumed);
-				RETURN(RC_WMORE);
+				RETURN_(RC_WMORE);
 			}
-			RETURN(RC_FAIL);
+			RETURN_(RC_FAIL);
 		case RC_FAIL: /* Fatal error */
-			RETURN(rval.code);
+			RETURN_(rval.code);
 		} /* switch(rval) */
 		
 		ADVANCE(rval.consumed);
@@ -290,7 +290,7 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 			 * The type must be fully decoded
 			 * by the CHOICE member-specific decoder.
 			 */
-			RETURN(RC_FAIL);
+			RETURN_(RC_FAIL);
 		}
 
 		if(ctx->left == -1
@@ -313,9 +313,9 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 
 			tl = ber_fetch_tag(ptr, LEFT, &tlv_tag);
 			switch(tl) {
-			case 0: if(!SIZE_VIOLATION) RETURN(RC_WMORE);
+			case 0: if(!SIZE_VIOLATION) RETURN_(RC_WMORE);
 				/* Fall through */
-			case -1: RETURN(RC_FAIL);
+			case -1: RETURN_(RC_FAIL);
 			}
 
 			/*
@@ -324,9 +324,9 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 			if(((const uint8_t *)ptr)[0] == 0) {
 				if(LEFT < 2) {
 					if(SIZE_VIOLATION)
-						RETURN(RC_FAIL);
+						RETURN_(RC_FAIL);
 					else
-						RETURN(RC_WMORE);
+						RETURN_(RC_WMORE);
 				} else if(((const uint8_t *)ptr)[1] == 0) {
 					/*
 					 * Correctly finished with <0><0>.
@@ -338,7 +338,7 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 			} else {
 				ASN_DEBUG("Unexpected continuation in %s",
 					td->name);
-				RETURN(RC_FAIL);
+				RETURN_(RC_FAIL);
 			}
 
 			/* UNREACHABLE */
@@ -350,7 +350,7 @@ CHOICE_decode_ber(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 		break;
 	}
 	
-	RETURN(RC_OK);
+	RETURN_(RC_OK);
 }
 
 asn_enc_rval_t
@@ -568,7 +568,7 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 	 */
 	if(st == 0) {
 		st = *struct_ptr = CALLOC(1, specs->struct_size);
-		if(st == 0) RETURN(RC_FAIL);
+		if(st == 0) RETURN_(RC_FAIL);
 	}
 
 	/*
@@ -620,7 +620,7 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 			ASN_DEBUG("XER/CHOICE: itdf: [%s] code=%d",
 				elm->type->name, tmprval.code);
 			if(tmprval.code != RC_OK)
-				RETURN(tmprval.code);
+				RETURN_(tmprval.code);
 			assert(_fetch_present_idx(st,
 				specs->pres_offset, specs->pres_size) == 0);
 			/* Record what we've got */
@@ -633,7 +633,7 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 		/* No need to wait for closing tag; special mode. */
 		if(ctx->phase == 3 && !*xml_tag) {
 			ctx->phase = 5;	/* Phase out */
-			RETURN(RC_OK);
+			RETURN_(RC_OK);
 		}
 
 		/*
@@ -641,8 +641,8 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 		 */
 		ch_size = xer_next_token(&ctx->context, buf_ptr, size, &ch_type);
 		switch(ch_size) {
-		case -1: RETURN(RC_FAIL);
-		case 0:  RETURN(RC_WMORE);
+		case -1: RETURN_(RC_FAIL);
+		case 0:  RETURN_(RC_WMORE);
 		default:
 			switch(ch_type) {
 			case PXER_COMMENT:	/* Got XML comment */
@@ -669,7 +669,7 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 			switch(xer_skip_unknown(tcv, &ctx->left)) {
 			case -1:
 				ctx->phase = 5;
-				RETURN(RC_FAIL);
+				RETURN_(RC_FAIL);
 				continue;
 			case 1:
 				ctx->phase = 3;
@@ -691,7 +691,7 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 				break;
 			XER_ADVANCE(ch_size);
 			ctx->phase = 5;	/* Phase out */
-			RETURN(RC_OK);
+			RETURN_(RC_OK);
 		case XCT_OPENING:
 			if(ctx->phase == 0) {
 				XER_ADVANCE(ch_size);
@@ -767,7 +767,7 @@ CHOICE_decode_xer(asn_codec_ctx_t *opt_codec_ctx, asn_TYPE_descriptor_t *td,
 	}
 
 	ctx->phase = 5;	/* Phase out, just in case */
-	RETURN(RC_FAIL);
+	RETURN_(RC_FAIL);
 }
 
 

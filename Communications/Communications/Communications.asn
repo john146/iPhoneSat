@@ -23,8 +23,8 @@ System-health ::= ENUMERATED {
 }
 
 Location ::= SEQUENCE {
-    latitude INTEGER,
-    longitude INTEGER,
+    latitude INTEGER (-90000000..90000000),
+    longitude INTEGER(-180000000..180000000),
     ...
 }
 
