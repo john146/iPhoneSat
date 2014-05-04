@@ -10,25 +10,45 @@
 
 @implementation Location
 
-- (id)initWithDecimalLatitude:(NSDecimalNumber *)latitude Longitude:(NSDecimalNumber *)longitude
+- (id)initWithDecimalLatitude:(NSDecimalNumber *)latitude
+                    Longitude:(NSDecimalNumber *)longitude
+                     Altitude:(NSNumber *)altitude
 {
     if (self = [super init]) {
         _latitude = latitude;
         _longitude = longitude;
+        _altitude = altitude;
     }
 
     return self;
 }
 
-- (id)initWithIntegerLatitude:(NSNumber *)latitude Longitude:(NSNumber *)longitude
+- (id)initWithIntegerLatitude:(NSNumber *)latitude
+                    Longitude:(NSNumber *)longitude
+                     Altitude:(NSNumber *)altitude
 {
     if (self = [super init]) {
-        _latitude = [NSDecimalNumber decimalNumberWithMantissa:[latitude intValue]
-                                                      exponent: -6
-                                                    isNegative:([latitude intValue] < 0) ? YES : NO];
-        _longitude = [NSDecimalNumber decimalNumberWithMantissa:[longitude intValue]
-                                                       exponent: -6
-                                                     isNegative:([longitude intValue] < 0) ? YES : NO];
+        if (0 >[latitude intValue]) {
+            _latitude = [NSDecimalNumber decimalNumberWithMantissa: abs([latitude intValue])
+                                                          exponent: -6
+                                                        isNegative: YES];
+        } else {
+            _latitude = [NSDecimalNumber decimalNumberWithMantissa:[latitude intValue]
+                                                          exponent: -6
+                                                        isNegative: NO];
+        }
+
+        if (0 > [longitude intValue]) {
+            _longitude = [NSDecimalNumber decimalNumberWithMantissa: abs([longitude intValue])
+                                                           exponent: -6
+                                                         isNegative: YES];
+        } else {
+            _longitude = [NSDecimalNumber decimalNumberWithMantissa:[longitude intValue]
+                                                           exponent: -6
+                                                         isNegative: NO];
+        }
+
+        _altitude = altitude;
     }
 
     return self;

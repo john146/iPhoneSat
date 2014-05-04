@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522B32851916E6D900005708 /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 522B32841916E6D900005708 /* Response.m */; };
+		522B32861916E6D900005708 /* Response.m in Sources */ = {isa = PBXBuildFile; fileRef = 522B32841916E6D900005708 /* Response.m */; };
 		52C80B04190C6163004D22EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C80B03190C6163004D22EF /* Foundation.framework */; };
 		52C80B09190C6163004D22EF /* Communications.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 52C80B08190C6163004D22EF /* Communications.h */; };
 		52C80B0B190C6163004D22EF /* Communications.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C80B0A190C6163004D22EF /* Communications.m */; };
@@ -72,6 +74,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		522B32831916E6D900005708 /* Response.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Response.h; path = ObjCommunications/Response.h; sourceTree = SOURCE_ROOT; };
+		522B32841916E6D900005708 /* Response.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Response.m; path = ObjCommunications/Response.m; sourceTree = SOURCE_ROOT; };
 		52C80B00190C6163004D22EF /* libCommunications.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCommunications.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C80B03190C6163004D22EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		52C80B07190C6163004D22EF /* Communications-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Communications-Prefix.pch"; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 				52C80B83190C756C004D22EF /* Communications.xcodeproj */,
 				52C80B85190C758E004D22EF /* Location.h */,
 				52C80B86190C758E004D22EF /* Location.m */,
+				522B32831916E6D900005708 /* Response.h */,
+				522B32841916E6D900005708 /* Response.m */,
 			);
 			name = ObjCommunications;
 			path = Communications.xcodeproj;
@@ -410,6 +416,7 @@
 				52C80B69190C6731004D22EF /* constr_CHOICE.c in Sources */,
 				52C80B70190C6731004D22EF /* Location.c in Sources */,
 				52C80B71190C6731004D22EF /* Message.c in Sources */,
+				522B32851916E6D900005708 /* Response.m in Sources */,
 				52C80B7A190C6731004D22EF /* Response.c in Sources */,
 				52C80B6D190C6731004D22EF /* converter-sample.c in Sources */,
 				52C80B7B190C6731004D22EF /* System-health.c in Sources */,
@@ -434,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522B32861916E6D900005708 /* Response.m in Sources */,
 				52C80B88190C758E004D22EF /* Location.m in Sources */,
 				52C80B8A190C799E004D22EF /* LocationTests.m in Sources */,
 				52C80B20190C6163004D22EF /* CommunicationsTests.m in Sources */,
