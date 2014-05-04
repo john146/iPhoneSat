@@ -56,6 +56,31 @@ memb_longitude_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
 	}
 }
 
+static int
+memb_altitude_constraint_1(asn_TYPE_descriptor_t *td, const void *sptr,
+			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+	long value;
+	
+	if(!sptr) {
+		_ASN_CTFAIL(app_key, td, sptr,
+			"%s: value not given (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+	
+	value = *(const long *)sptr;
+	
+	if((value >= -500 && value <= 36000000)) {
+		/* Constraint check succeeded */
+		return 0;
+	} else {
+		_ASN_CTFAIL(app_key, td, sptr,
+			"%s: constraint failed (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+}
+
 static asn_per_constraints_t asn_PER_memb_latitude_constr_2 GCC_NOTUSED = {
 	{ APC_CONSTRAINED,	 28, -1, -90000000,  90000000 }	/* (-90000000..90000000) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
@@ -63,6 +88,11 @@ static asn_per_constraints_t asn_PER_memb_latitude_constr_2 GCC_NOTUSED = {
 };
 static asn_per_constraints_t asn_PER_memb_longitude_constr_3 GCC_NOTUSED = {
 	{ APC_CONSTRAINED,	 29, -1, -180000000,  180000000 }	/* (-180000000..180000000) */,
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+	0, 0	/* No PER value map */
+};
+static asn_per_constraints_t asn_PER_memb_altitude_constr_4 GCC_NOTUSED = {
+	{ APC_CONSTRAINED,	 26, -1, -500,  36000000 }	/* (-500..36000000) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
 };
@@ -85,22 +115,32 @@ static asn_TYPE_member_t asn_MBR_Location_1[] = {
 		0,
 		"longitude"
 		},
+	{ ATF_NOFLAGS, 0, offsetof(struct Location, altitude),
+		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_NativeInteger,
+		memb_altitude_constraint_1,
+		&asn_PER_memb_altitude_constr_4,
+		0,
+		"altitude"
+		},
 };
 static ber_tlv_tag_t asn_DEF_Location_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
 static asn_TYPE_tag2member_t asn_MAP_Location_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* latitude */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* longitude */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* longitude */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* altitude */
 };
 static asn_SEQUENCE_specifics_t asn_SPC_Location_specs_1 = {
 	sizeof(struct Location),
 	offsetof(struct Location, _asn_ctx),
 	asn_MAP_Location_tag2el_1,
-	2,	/* Count of tags in the map */
+	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
-	1,	/* Start extensions */
-	3	/* Stop extensions */
+	2,	/* Start extensions */
+	4	/* Stop extensions */
 };
 asn_TYPE_descriptor_t asn_DEF_Location = {
 	"Location",
@@ -123,7 +163,7 @@ asn_TYPE_descriptor_t asn_DEF_Location = {
 		/sizeof(asn_DEF_Location_tags_1[0]), /* 1 */
 	0,	/* No PER visible constraints */
 	asn_MBR_Location_1,
-	2,	/* Elements count */
+	3,	/* Elements count */
 	&asn_SPC_Location_specs_1	/* Additional specs */
 };
 

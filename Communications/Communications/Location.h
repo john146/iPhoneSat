@@ -22,6 +22,7 @@ extern "C" {
 typedef struct Location {
 	long	 latitude;
 	long	 longitude;
+	long	 altitude;
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.

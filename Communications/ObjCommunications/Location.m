@@ -23,10 +23,6 @@
 - (id)initWithIntegerLatitude:(NSNumber *)latitude Longitude:(NSNumber *)longitude
 {
     if (self = [super init]) {
-        NSNumber zero = [NSNumber numberWithInt:0];
-        if (NSOrderedAscending == [latitude compare: zero]) {
-            <#statements#>
-        }
         _latitude = [NSDecimalNumber decimalNumberWithMantissa:[latitude intValue]
                                                       exponent: -6
                                                     isNegative:([latitude intValue] < 0) ? YES : NO];

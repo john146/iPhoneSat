@@ -12,7 +12,7 @@
 		consumed_myself += num;					\
 	} while(0)
 #undef	RETURN
-#define	RETURN_(_code)	do {						\
+#define	RETURN(_code)	do {						\
 		asn_dec_rval_t rval;					\
 		rval.code = _code;					\
 		if(opt_ctx) opt_ctx->step = step; /* Save context */	\
@@ -81,7 +81,7 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 	 * Make sure we didn't exceed the maximum stack size.
 	 */
 	if(_ASN_STACK_OVERFLOW_CHECK(opt_codec_ctx))
-		RETURN_(RC_FAIL);
+		RETURN(RC_FAIL);
 
 	/*
 	 * So what does all this implicit skip stuff mean?
@@ -120,15 +120,15 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 		 */
 		tag_len = ber_fetch_tag(ptr, size, &tlv_tag);
 		switch(tag_len) {
-		case -1: RETURN_(RC_FAIL);
-		case 0: RETURN_(RC_WMORE);
+		case -1: RETURN(RC_FAIL);
+		case 0: RETURN(RC_WMORE);
 		}
 		tlv_constr = BER_TLV_CONSTRUCTED(ptr);
 		len_len = ber_fetch_length(tlv_constr,
 			(const char *)ptr + tag_len, size - tag_len, &tlv_len);
 		switch(len_len) {
-		case -1: RETURN_(RC_FAIL);
-		case 0: RETURN_(RC_WMORE);
+		case -1: RETURN(RC_FAIL);
+		case 0: RETURN(RC_WMORE);
 		}
 		ASN_DEBUG("Advancing %ld in ANY case",
 			(long)(tag_len + len_len));
@@ -148,8 +148,8 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 				(long)tag_len, step, tagno,
 				ber_tlv_tag_string(tlv_tag));
 		switch(tag_len) {
-		case -1: RETURN_(RC_FAIL);
-		case 0: RETURN_(RC_WMORE);
+		case -1: RETURN(RC_FAIL);
+		case 0: RETURN(RC_WMORE);
 		}
 
 		tlv_constr = BER_TLV_CONSTRUCTED(ptr);
@@ -175,7 +175,7 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 				ber_tlv_tag_string(td->tags[tagno]),
 				tagno, tag_mode
 			);
-			RETURN_(RC_FAIL);
+			RETURN(RC_FAIL);
 		    }
 		}
 
@@ -190,14 +190,14 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 			if(tlv_constr == 0) {
 				ASN_DEBUG("tlv_constr = %d, expfail",
 					tlv_constr);
-				RETURN_(RC_FAIL);
+				RETURN(RC_FAIL);
 			}
 		} else {
 			if(last_tag_form != tlv_constr
 			&& last_tag_form != -1) {
 				ASN_DEBUG("last_tag_form %d != %d",
 					last_tag_form, tlv_constr);
-				RETURN_(RC_FAIL);
+				RETURN(RC_FAIL);
 			}
 		}
 
@@ -208,8 +208,8 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 			(const char *)ptr + tag_len, size - tag_len, &tlv_len);
 		ASN_DEBUG("Fetching len = %ld", (long)len_len);
 		switch(len_len) {
-		case -1: RETURN_(RC_FAIL);
-		case 0: RETURN_(RC_WMORE);
+		case -1: RETURN(RC_FAIL);
+		case 0: RETURN(RC_WMORE);
 		}
 
 		/*
@@ -228,7 +228,7 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 			} else {
 				ASN_DEBUG("Unexpected indefinite length "
 					"in a chain of definite lengths");
-				RETURN_(RC_FAIL);
+				RETURN(RC_FAIL);
 			}
 			ADVANCE(tag_len + len_len);
 			continue;
@@ -236,7 +236,7 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 			if(expect_00_terminators) {
 				ASN_DEBUG("Unexpected definite length "
 					"in a chain of indefinite lengths");
-				RETURN_(RC_FAIL);
+				RETURN(RC_FAIL);
 			}
 		}
 
@@ -248,7 +248,7 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 			limit_len    = tlv_len + tag_len + len_len;
 			if(limit_len < 0) {
 				/* Too great tlv_len value? */
-				RETURN_(RC_FAIL);
+				RETURN(RC_FAIL);
 			}
 		} else if(limit_len != tlv_len + tag_len + len_len) {
 			/*
@@ -257,7 +257,7 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 			 */
 			ASN_DEBUG("Outer TLV is %ld and inner is %ld",
 				(long)limit_len, (long)tlv_len);
-			RETURN_(RC_FAIL);
+			RETURN(RC_FAIL);
 		}
 
 		ADVANCE(tag_len + len_len);
@@ -272,7 +272,6 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 		}
 	}
 
-    tlv_len = 0;
 	if(opt_tlv_form)
 		*opt_tlv_form = tlv_constr;
 	if(expect_00_terminators)
@@ -280,5 +279,5 @@ ber_check_tags(asn_codec_ctx_t *opt_codec_ctx,
 	else
 		*last_length = tlv_len;
 
-	RETURN_(RC_OK);
+	RETURN(RC_OK);
 }
