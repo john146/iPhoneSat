@@ -10,6 +10,14 @@
 
 #import "../Communications/per_encoder.h"
 
+const size_t bufferSize = 64;
+
+@interface Location ()
+{
+    uint8_t buffer[bufferSize];
+}
+@end
+
 @implementation Location
 
 - (id)initWithDecimalLatitude:(NSDecimalNumber *)latitude
@@ -47,8 +55,8 @@
     location.latitude = [self.latitude intValue];
     location.longitude = [self.longitude intValue];
     location.altitude = [self.altitude intValue];
-    char buffer[64];
-    asn_enc_rval_t returnValue = uper_encode_to_buffer(&asn_DEF_Location, &location, buffer, 48);
+    memset(buffer, 0, bufferSize);
+    asn_enc_rval_t returnValue = uper_encode_to_buffer(&asn_DEF_Location, &location, buffer, bufferSize);
     if (-1 == returnValue.encoded) {
         return NO;
     }
@@ -60,6 +68,10 @@
 - (Boolean)decode
 {
     return NO;
+}
+
+- (uint8_t*)buffer {
+    return buffer;
 }
 
 @end

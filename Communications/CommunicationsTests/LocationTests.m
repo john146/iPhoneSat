@@ -100,6 +100,8 @@
     XCTAssertTrue(YES == result, @"Expected YES from encode, but got NO");
     long bitsEncoded = [testLocation.bitsEncoded intValue];
     XCTAssertEqual(84, bitsEncoded, @"Expected 84, but got %li", bitsEncoded);
+    uint8_t* encodedBits = [testLocation buffer];
+    uint8_t expectedBits[] = {0x0,0x0,0x0};
 }
 
 @end

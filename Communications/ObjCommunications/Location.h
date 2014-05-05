@@ -27,4 +27,6 @@
 - (Boolean)encode;
 - (Boolean)decode;
 
+- (uint8_t*)buffer;
+
 @end
