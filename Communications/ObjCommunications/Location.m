@@ -8,6 +8,8 @@
 
 #import "Location.h"
 
+#import "../Communications/per_encoder.h"
+
 @implementation Location
 
 - (id)initWithDecimalLatitude:(NSDecimalNumber *)latitude
@@ -15,9 +17,11 @@
                      Altitude:(NSNumber *)altitude
 {
     if (self = [super init]) {
-        _latitude = latitude;
-        _longitude = longitude;
+        NSDecimalNumber* million = [NSDecimalNumber decimalNumberWithString:@"1000000"];
+        _latitude = [NSNumber numberWithDouble: [[latitude decimalNumberByMultiplyingBy:million] doubleValue]];
+        _longitude = [NSNumber numberWithDouble: [[longitude decimalNumberByMultiplyingBy:million] doubleValue]];
         _altitude = altitude;
+        _bitsEncoded = [NSNumber numberWithInt: 0];
     }
 
     return self;
@@ -28,27 +32,10 @@
                      Altitude:(NSNumber *)altitude
 {
     if (self = [super init]) {
-        if (0 >[latitude intValue]) {
-            _latitude = [NSDecimalNumber decimalNumberWithMantissa: abs([latitude intValue])
-                                                          exponent: -6
-                                                        isNegative: YES];
-        } else {
-            _latitude = [NSDecimalNumber decimalNumberWithMantissa:[latitude intValue]
-                                                          exponent: -6
-                                                        isNegative: NO];
-        }
-
-        if (0 > [longitude intValue]) {
-            _longitude = [NSDecimalNumber decimalNumberWithMantissa: abs([longitude intValue])
-                                                           exponent: -6
-                                                         isNegative: YES];
-        } else {
-            _longitude = [NSDecimalNumber decimalNumberWithMantissa:[longitude intValue]
-                                                           exponent: -6
-                                                         isNegative: NO];
-        }
-
+        _latitude = latitude;
+        _longitude = longitude;
         _altitude = altitude;
+        _bitsEncoded = [NSNumber numberWithInt: 0];
     }
 
     return self;
@@ -56,7 +43,18 @@
 
 - (Boolean)encode
 {
-    return NO;
+    Location_t location;
+    location.latitude = [self.latitude intValue];
+    location.longitude = [self.longitude intValue];
+    location.altitude = [self.altitude intValue];
+    char buffer[64];
+    asn_enc_rval_t returnValue = uper_encode_to_buffer(&asn_DEF_Location, &location, buffer, 48);
+    if (-1 == returnValue.encoded) {
+        return NO;
+    }
+
+    self.bitsEncoded = [NSNumber numberWithInt: returnValue.encoded];
+    return YES;
 }
 
 - (Boolean)decode
