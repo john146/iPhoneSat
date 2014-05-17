@@ -65,9 +65,22 @@ const size_t bufferSize = 64;
     return YES;
 }
 
-- (Boolean)decode
+- (Boolean)decodeBuffer:(uint8_t *)myBuffer size: (NSInteger)bufferSize intoLocation: (Location*) location
 {
-    return NO;
+    asn_codec_ctx_t ctx;
+    ctx.max_stack_size = 0; // disables stack size checking
+
+    void* myLocation;
+    asn_dec_rval_t response = uper_decode_complete(&ctx, &asn_DEF_Location, &myLocation, myBuffer, bufferSize);
+    if (RC_OK != response.code) {
+        return NO;
+    }
+
+    if (bufferSize - 8 > response.consumed) {
+        return NO;
+    }
+
+    return YES;
 }
 
 - (uint8_t*)buffer {

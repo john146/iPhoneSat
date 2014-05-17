@@ -101,7 +101,27 @@
     long bitsEncoded = [testLocation.bitsEncoded intValue];
     XCTAssertEqual(84, bitsEncoded, @"Expected 84, but got %li", bitsEncoded);
     uint8_t* encodedBits = [testLocation buffer];
-    uint8_t expectedBits[] = {0x0,0x0,0x0};
+    XCTAssertEqual(0x2a, encodedBits[0], @"First byte expected 0x0, but got %x", encodedBits[0]);
+    XCTAssertEqual(0xea, encodedBits[1], @"Second byte expected 0x0, but got %x", encodedBits[1]);
+    XCTAssertEqual(0x54, encodedBits[2], @"Third byte expected 0x0, but got %x", encodedBits[2]);
+    XCTAssertEqual(0x02, encodedBits[3], @"Fourth byte expected 0x0, but got %x", encodedBits[3]);
+    XCTAssertEqual(0xae, encodedBits[4], @"Fifth byte expected 0x0, but got %x", encodedBits[4]);
+    XCTAssertEqual(0xa5, encodedBits[5], @"Sixth byte expected 0x0, but got %x", encodedBits[5]);
+    XCTAssertEqual(0x40, encodedBits[6], @"Seventh byte expected 0x0, but got %x", encodedBits[6]);
+    XCTAssertEqual(0x0, encodedBits[7], @"Eighth byte expected 0x0, but got %x", encodedBits[7]);
+    XCTAssertEqual(0x0, encodedBits[8], @"Ninth byte expected 0x0, but got %x", encodedBits[8]);
+    XCTAssertEqual(0x1f, encodedBits[9], @"Tenth byte expected 0x0, but got %x", encodedBits[9]);
+    XCTAssertEqual(0x40, encodedBits[10], @"Eleventh byte expected 0x0, but got %x", encodedBits[10]);
+}
+
+- (void)test_decode000
+{
+    uint8_t input[] = {0x2a,0xea,0x54,0x02,0xae,0xa5,0x40,0x0,0x0,0x1f,0x40};
+    Location* testLocation = [[Location alloc] init];
+    XCTAssertNotNil(testLocation, @"Test Location not constructed");
+
+    Boolean result = [testLocation decodeBuffer: input size: 11 intoLocation: testLocation];
+    XCTAssertTrue(result, @"Failed to decode the buffer successfully");
 }
 
 @end

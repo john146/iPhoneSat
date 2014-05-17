@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>57AD1453-0369-4F32-985E-A8B8B9C101DA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Communications</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E48881BF-F7BD-488A-B64A-370F789801EF</key>
+		<string>https://github.com/john146/iPhoneSat.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Communications/Communications.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E48881BF-F7BD-488A-B64A-370F789801EF</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/john146/iPhoneSat.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E48881BF-F7BD-488A-B64A-370F789801EF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E48881BF-F7BD-488A-B64A-370F789801EF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iPhoneSat</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -25,7 +25,7 @@
                      Altitude: (NSNumber*)altitude;
 
 - (Boolean)encode;
-- (Boolean)decode;
+- (Boolean)decodeBuffer: (uint8_t*)buffer size: (NSInteger)bufferSize intoLocation: (Location*) location;
 
 - (uint8_t*)buffer;
 
