@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "IPSRequest.h"
+
 @interface IPSRequestTests : XCTestCase
 
 @end
@@ -26,9 +28,12 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testInitWithType_STATUSType
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    IPSRequest* request = [[IPSRequest alloc] initWithType: STATUS];
+    XCTAssert(nil != request, @"Failed to initialize IPSRequest");
+    /XCTAssertEqual(STATUS, request.type, @"Failed to initialize Type to STATUS");
+    XCTAssertNil(request.message, @"Failed to initialize Message to nil");
 }
 
 @end

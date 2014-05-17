@@ -16,6 +16,9 @@
 		525125CE1927FB3F000A5A96 /* libIPSCommunications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 525125B61927FB3F000A5A96 /* libIPSCommunications.a */; };
 		525125D41927FB3F000A5A96 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 525125D21927FB3F000A5A96 /* InfoPlist.strings */; };
 		525125D61927FB3F000A5A96 /* IPSCommunicationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125D51927FB3F000A5A96 /* IPSCommunicationsTests.m */; };
+		525125E2192801C8000A5A96 /* IPSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125E1192801C8000A5A96 /* IPSRequest.m */; };
+		525125E3192801C8000A5A96 /* IPSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125E1192801C8000A5A96 /* IPSRequest.m */; };
+		525125E5192806E6000A5A96 /* IPSRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125E4192806E6000A5A96 /* IPSRequestTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		525125D11927FB3F000A5A96 /* IPSCommunicationsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IPSCommunicationsTests-Info.plist"; sourceTree = "<group>"; };
 		525125D31927FB3F000A5A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		525125D51927FB3F000A5A96 /* IPSCommunicationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPSCommunicationsTests.m; sourceTree = "<group>"; };
+		525125E0192801C8000A5A96 /* IPSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPSRequest.h; sourceTree = "<group>"; };
+		525125E1192801C8000A5A96 /* IPSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSRequest.m; sourceTree = "<group>"; };
+		525125E4192806E6000A5A96 /* IPSRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSRequestTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,8 @@
 				525125BE1927FB3F000A5A96 /* IPSCommunications.h */,
 				525125C01927FB3F000A5A96 /* IPSCommunications.m */,
 				525125BC1927FB3F000A5A96 /* Supporting Files */,
+				525125E0192801C8000A5A96 /* IPSRequest.h */,
+				525125E1192801C8000A5A96 /* IPSRequest.m */,
 			);
 			path = IPSCommunications;
 			sourceTree = "<group>";
@@ -130,6 +138,7 @@
 			children = (
 				525125D51927FB3F000A5A96 /* IPSCommunicationsTests.m */,
 				525125D01927FB3F000A5A96 /* Supporting Files */,
+				525125E4192806E6000A5A96 /* IPSRequestTests.m */,
 			);
 			path = IPSCommunicationsTests;
 			sourceTree = "<group>";
@@ -224,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525125E2192801C8000A5A96 /* IPSRequest.m in Sources */,
 				525125C11927FB3F000A5A96 /* IPSCommunications.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +242,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525125E3192801C8000A5A96 /* IPSRequest.m in Sources */,
+				525125E5192806E6000A5A96 /* IPSRequestTests.m in Sources */,
 				525125D61927FB3F000A5A96 /* IPSCommunicationsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,7 +273,7 @@
 		525125D71927FB3F000A5A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -298,7 +310,7 @@
 		525125D81927FB3F000A5A96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
