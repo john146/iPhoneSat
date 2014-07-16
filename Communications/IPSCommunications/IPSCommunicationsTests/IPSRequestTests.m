@@ -31,9 +31,38 @@
 - (void)testInitWithType_STATUSType
 {
     IPSRequest* request = [[IPSRequest alloc] initWithType: STATUS];
-    XCTAssert(nil != request, @"Failed to initialize IPSRequest");
-    /XCTAssertEqual(STATUS, request.type, @"Failed to initialize Type to STATUS");
-    XCTAssertNil(request.message, @"Failed to initialize Message to nil");
+    XCTAssertNotNil(request, @"Failed to initialize IPSRequest");
+    XCTAssertEqual((RequestType)STATUS, request.type, @"Failed to initialize Type to STATUS");
+    XCTAssertTrue(request.message == 0, @"Failed to initialize Message to nil");
+}
+
+- (void)testRequestWithType_UNKNOWNType
+{
+    IPSRequest* request = [IPSRequest RequestWithType: UNKNOWN];
+    XCTAssertNotNil(request, @"Failed to Construct IPSRequest");
+    XCTAssertEqual(UNKNOWN, request.type, @"Failed to initialize Type to UNKNOWN");
+    XCTAssertTrue(request.message == 0, @"Failed to initialize Message to nil");
+}
+
+- (void)testInitWithMessage
+{
+    uint8_t message[] = {"Test Message"};
+    IPSRequest* request = [[IPSRequest alloc] initWithMessage: message];
+    XCTAssertNotNil(request, @"Failed to Construct IPSrequest");
+    XCTAssertEqual(UNKNOWN, request.type, @"Failed to initialize type to UNKNOWN");
+    XCTAssertTrue(request.message != 0, @"Failed to initialize message");
+    XCTAssertEqual(strncmp((const char*)message, (const char*)request.message, sizeof(message)), 0,
+                   @"Failed to initialize message. Expected %s, but got %s", message, request.message);
+}
+
+- (void)testRequestWithMessage
+{
+    uint8_t message[] = {"Test Message"};
+    IPSRequest* request = [IPSRequest RequestWithMessage: message];
+    XCTAssertNotNil(request, @"Failed to Construct IPSRequest");
+    XCTAssertEqual(UNKNOWN, request.type, @"Failed to initialize type to UNKNOWN");
+    XCTAssertTrue(request.message != 0, @"Failed to initialize message");
+    XCTAssertEqual(strncmp((const char*)message, (const char*)request.message, sizeof(message)), 0, @"Failed to initialize message. Expected %s, but got %s", message, request.message);
 }
 
 @end
