@@ -19,6 +19,9 @@
 		525125E2192801C8000A5A96 /* IPSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125E1192801C8000A5A96 /* IPSRequest.m */; };
 		525125E3192801C8000A5A96 /* IPSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125E1192801C8000A5A96 /* IPSRequest.m */; };
 		525125E5192806E6000A5A96 /* IPSRequestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 525125E4192806E6000A5A96 /* IPSRequestTests.m */; };
+		528ACA8A19762EEF00180F88 /* IPS_JSONRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 528ACA8919762EEF00180F88 /* IPS_JSONRequest.m */; };
+		528ACA8B19762EEF00180F88 /* IPS_JSONRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 528ACA8919762EEF00180F88 /* IPS_JSONRequest.m */; };
+		528ACA8F1976317C00180F88 /* IPS_JSONRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528ACA8E1976317C00180F88 /* IPS_JSONRequestTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,10 @@
 		525125E0192801C8000A5A96 /* IPSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPSRequest.h; sourceTree = "<group>"; };
 		525125E1192801C8000A5A96 /* IPSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSRequest.m; sourceTree = "<group>"; };
 		525125E4192806E6000A5A96 /* IPSRequestTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPSRequestTests.m; sourceTree = "<group>"; };
+		528ACA8919762EEF00180F88 /* IPS_JSONRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPS_JSONRequest.m; sourceTree = "<group>"; };
+		528ACA8C19762F0D00180F88 /* IPS_JSONRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPS_JSONRequest.h; sourceTree = "<group>"; };
+		528ACA8D1976317C00180F88 /* IPSCommunicationsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IPSCommunicationsTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		528ACA8E1976317C00180F88 /* IPS_JSONRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IPS_JSONRequestTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +128,8 @@
 				525125BC1927FB3F000A5A96 /* Supporting Files */,
 				525125E0192801C8000A5A96 /* IPSRequest.h */,
 				525125E1192801C8000A5A96 /* IPSRequest.m */,
+				528ACA8919762EEF00180F88 /* IPS_JSONRequest.m */,
+				528ACA8C19762F0D00180F88 /* IPS_JSONRequest.h */,
 			);
 			path = IPSCommunications;
 			sourceTree = "<group>";
@@ -139,6 +148,8 @@
 				525125D51927FB3F000A5A96 /* IPSCommunicationsTests.m */,
 				525125D01927FB3F000A5A96 /* Supporting Files */,
 				525125E4192806E6000A5A96 /* IPSRequestTests.m */,
+				528ACA8E1976317C00180F88 /* IPS_JSONRequestTests.swift */,
+				528ACA8D1976317C00180F88 /* IPSCommunicationsTests-Bridging-Header.h */,
 			);
 			path = IPSCommunicationsTests;
 			sourceTree = "<group>";
@@ -234,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				525125E2192801C8000A5A96 /* IPSRequest.m in Sources */,
+				528ACA8A19762EEF00180F88 /* IPS_JSONRequest.m in Sources */,
 				525125C11927FB3F000A5A96 /* IPSCommunications.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +256,8 @@
 			files = (
 				525125E3192801C8000A5A96 /* IPSRequest.m in Sources */,
 				525125E5192806E6000A5A96 /* IPSRequestTests.m in Sources */,
+				528ACA8F1976317C00180F88 /* IPS_JSONRequestTests.swift in Sources */,
+				528ACA8B19762EEF00180F88 /* IPS_JSONRequest.m in Sources */,
 				525125D61927FB3F000A5A96 /* IPSCommunicationsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,6 +379,7 @@
 		525125DD1927FB3F000A5A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -377,7 +392,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "IPSCommunicationsTests/IPSCommunicationsTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "IPSCommunicationsTests/IPSCommunicationsTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -385,6 +403,7 @@
 		525125DE1927FB3F000A5A96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -393,7 +412,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IPSCommunications/IPSCommunications-Prefix.pch";
 				INFOPLIST_FILE = "IPSCommunicationsTests/IPSCommunicationsTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "IPSCommunicationsTests/IPSCommunicationsTests-Bridging-Header.h";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -417,6 +438,7 @@
 				525125DB1927FB3F000A5A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		525125DC1927FB3F000A5A96 /* Build configuration list for PBXNativeTarget "IPSCommunicationsTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +447,7 @@
 				525125DE1927FB3F000A5A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
